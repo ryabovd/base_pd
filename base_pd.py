@@ -4,22 +4,8 @@ import csv
 def main():
     base_file = "base_pd.csv"
     base_structure = ['ФИО', 'Дата рождения yyyy.mm.dd', 'Место рождения', 'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 'СНИЛС', 'ИНН']
-    #print(base_file_read(base_file))
     menu_choise = menu()
     menu_handling(menu_choise, base_file, base_structure)
-
-"""
-   base_file_read(base_file)
-    
-    n = int(input("Введите количество записей для ввода "))
-    data_list = []
-    for i in range(n):
-        data = []
-        for y in range(len(base_structure)):
-            data_input = input("Введите данные: " + base_structure[y] + " ")
-            data.append(data_input)
-        base_file_write(base_file, data)
-"""
 
 def menu():
     menu_choise = 'выбор не сделан'
@@ -45,7 +31,6 @@ def menu_handling(menu_choise, base_file, base_structure):
 def rec_find(base_file):
     record = input("Введите ФИО для поиска: ")
     base_list =  base_file_read(base_file)
-    #print(reader)
     for rec in base_list:
         if record in rec[0]:
             print(rec)
@@ -71,10 +56,8 @@ def base_file_read(base_file):
         reader = csv.reader(base, delimiter = ';')
         base_list = []
         for row in reader:
-            #print(row)
             base_list.append(row)
         return(base_list)
-
 
 def base_file_write(base_file, data):
     print(data)
