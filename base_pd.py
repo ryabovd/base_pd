@@ -1,11 +1,14 @@
 import csv
 from datetime import date
+import sys
 
 
 def main():
     base_file = "base_pd.csv"
     date = date_today()
-    base_structure = ['ФИО', 'Дата рождения yyyy.mm.dd', 'Место рождения', 'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 'СНИЛС', 'ИНН', 'Дата актуальности']
+    base_structure = ['ФИО', 'Дата рождения yyyy.mm.dd', 'Место рождения', 
+    'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 
+    'СНИЛС', 'ИНН', 'Адрес (Индекс, Регион, Город, Улица, Дом, Квартира)', 'Дата актуальности']
     menu_choise = menu()
     menu_handling(menu_choise, base_file, base_structure)
 
@@ -20,18 +23,23 @@ def menu():
     print()
     menu_choise = input("Выберите пункт меню - ")
     while menu_choise not in ['0', '1', '2', '3', '4']:
-        menu_choise = input("Неправильный выбор\nВыберите пункт меню - ")
+        menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
     print('Выбор', menu_choise)
     return menu_choise
 
 def menu_handling(menu_choise, base_file, base_structure):
     if menu_choise == '1':
         rec_find(base_file)
-    if menu_choise == '2':
+    elif menu_choise == '2':
         rec_new(base_file, base_structure)
-    if menu_choise == '3':
+    elif menu_choise == '3':
         pass
-    if menu_choise == '4':
+    elif menu_choise == '4':
+        print_all_data(base_file)
+    elif menu_choise == '0':
+        print("ВЫХОД из программы")
+        sys.exit()
+    else:
         pass
 
 def rec_find(base_file):
@@ -47,22 +55,39 @@ def rec_find(base_file):
     print("Что дальше?")
 
 def rec_new(base_file, base_structure):
-    n = int(input("Введите количество записей для ввода "))
+    n = int(input("Введите количество записей для ввода - "))
     data_list = []
     for i in range(n):
         data = []
         for y in range(len(base_structure) - 1):
-            data_input = input("Введите данные: " + base_structure[y] + " ")
-            data.append(data_input)
-            print(data)
-        date = date_today()
-        data.append(date)
-        base_file_write(base_file, data)
+            data_input = input("Введите данные: " + base_structure[y] + " - ").strip()
+            if y == 0:
+                if check_name(data_input, base_file) is True:
+                    print("Такая запись уже внесена.\nОСТАНОВКА программы\n")
+                    break
+                else:
+                    data.append(data_input)
+            else:
+                data.append(data_input)
+        if len(data) > 1:
+            date = date_today()
+            data.append(date)
+            base_file_write(base_file, data)
+
+def check_name(data_input, base_file):
+    record = False
+    data = base_file_read(base_file)
+    for rec in data:
+        if rec[0] == data_input:
+            record = True
+            return record
+        else:
+            continue
+    return record
 
 def date_today():
     '''Func that returned today date'''
     today = date.today()
-    print(type(today))
     return today
     
 def base_file_read(base_file):
@@ -74,10 +99,18 @@ def base_file_read(base_file):
         return(base_list)
 
 def base_file_write(base_file, data):
-    print(data)
     with open(file=base_file, mode="a", encoding="UTF-8", newline='') as base:
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
+        print("Внесена запись")
+        print(data)
+        #menu()
+
+def print_all_data(base_file):
+    base = base_file_read(base_file)
+    for rec in base:
+        print(( ';').join(rec))
+
 
 if __name__ == "__main__":
     main()
