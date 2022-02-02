@@ -1,9 +1,11 @@
 import csv
+from datetime import date
 
 
 def main():
     base_file = "base_pd.csv"
-    base_structure = ['ФИО', 'Дата рождения yyyy.mm.dd', 'Место рождения', 'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 'СНИЛС', 'ИНН']
+    date = date_today()
+    base_structure = ['ФИО', 'Дата рождения yyyy.mm.dd', 'Место рождения', 'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 'СНИЛС', 'ИНН', 'Дата актуальности']
     menu_choise = menu()
     menu_handling(menu_choise, base_file, base_structure)
 
@@ -27,6 +29,10 @@ def menu_handling(menu_choise, base_file, base_structure):
         rec_find(base_file)
     if menu_choise == '2':
         rec_new(base_file, base_structure)
+    if menu_choise == '3':
+        pass
+    if menu_choise == '4':
+        pass
 
 def rec_find(base_file):
     record = input("Введите ФИО для поиска: ")
@@ -45,11 +51,19 @@ def rec_new(base_file, base_structure):
     data_list = []
     for i in range(n):
         data = []
-        for y in range(len(base_structure)):
+        for y in range(len(base_structure) - 1):
             data_input = input("Введите данные: " + base_structure[y] + " ")
             data.append(data_input)
             print(data)
+        date = date_today()
+        data.append(date)
         base_file_write(base_file, data)
+
+def date_today():
+    '''Func that returned today date'''
+    today = date.today()
+    print(type(today))
+    return today
     
 def base_file_read(base_file):
     with open(file=base_file, mode="r", encoding="UTF-8") as base:
