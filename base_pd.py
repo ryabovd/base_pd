@@ -5,8 +5,8 @@ import sys
 
 def main():
     base_file = "base_pd.csv"
-    date = date_today()
-    base_structure = ['Фамилия Имя Отчество', 
+    base_structure = [
+        'Фамилия Имя Отчество', 
         'Дата рождения yyyy.mm.dd', 
         'Место рождения', 
         'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 
@@ -15,7 +15,8 @@ def main():
         'Адрес (Индекс, Регион, Город, Улица, Дом, Квартира)', 
         'Телефон (+7**********)', 
         'e-mail', 
-        'Дата актуальности']
+        'Дата актуальности'
+        ]
     menu_choise = menu()
     menu_handling(menu_choise, base_file, base_structure)
 
@@ -52,14 +53,28 @@ def menu_handling(menu_choise, base_file, base_structure):
 def rec_find(base_file):
     record = input("Введите ФИО для поиска: ")
     base_list =  base_file_read(base_file)
+    find_list = get_find_list(base_list, record)
+    print_find_list(find_list, record)
+            
+def get_find_list(base_list, record):
+    find_list = []
     for rec in base_list:
         if record in rec[0]:
-            print(rec)
+            find_list.append(rec)
         elif rec == []:
             continue
         else:
             continue
-    print("Что дальше?")
+    return find_list
+
+def print_find_list(find_list, record):
+    if len(find_list) > 0:
+        print('\n№   Запись')
+        for rec in range(len(find_list)):
+            print(rec + 1, ' ', ('; ').join(find_list[rec]))
+    else:
+        print('\nЗапись', record, 'НЕ НАЙДЕНА')
+    print("\nЧто дальше?")
 
 def rec_new(base_file, base_structure):
     n = int(input("Введите количество записей для ввода - "))
