@@ -13,8 +13,8 @@ def main():
         'СНИЛС (только цифры)', 
         'ИНН', 
         'Адрес (Индекс, Регион, Город, Улица, Дом, Квартира)', 
-        'Телефон (+7**********)', 
-        'e-mail', 
+        'Телефон (+7********** несколько через запятую)', 
+        'e-mail (несколько через запятую)', 
         'Дата актуальности'
         ]
     menu_choise = menu()
@@ -112,7 +112,7 @@ def date_today():
     today = date.today()
     return today
     
-def base_file_read(base_file):
+#def base_file_read(base_file):
     with open(file=base_file, mode="r", encoding="UTF-8") as base:
         reader = csv.reader(base, delimiter = ';')
         base_list = []
@@ -132,6 +132,13 @@ def print_all_data(base_file):
     base = base_file_read(base_file)
     for rec in base:
         print(( ';').join(rec))
+
+def base_file_read(base_file):
+    with open(file=base_file, mode='r', encoding='utf-8') as file:
+        lines = csv.reader(file)
+        base_list = list(lines)
+    print(base_list)
+    return base_list
 
 
 if __name__ == "__main__":
