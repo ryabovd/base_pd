@@ -51,27 +51,35 @@ def menu_handling(menu_choise, base_file, base_structure):
         pass
 
 def rec_find(base_file):
+    '''Func that recieved basefile name and printed list of finded records'''
     record = input("Введите ФИО для поиска: ")
     base_list =  base_file_read(base_file)
     find_list = get_find_list(base_list, record)
     print_find_list(find_list, record)
             
 def get_find_list(base_list, record):
+    '''Func recieved list of records and returned list of finded records and theyes indexes'''
     find_list = []
-    for rec in base_list:
-        if record in rec[0]:
-            find_list.append(rec)
-        elif rec == []:
+    for rec in range(len(base_list)):
+        if record in base_list[rec][0]:
+            finded_record = rec, base_list[rec]
+            find_list.append(finded_record)
+        elif base_list[rec] == []:
             continue
         else:
             continue
     return find_list
 
 def print_find_list(find_list, record):
+    '''Func recieved list of finded records and record that need to find.
+    Printed heads.
+    For rec in base printed index of finded record and finded record.
+    if record not in base, print notice.
+    '''
     if len(find_list) > 0:
-        print('\n№   Запись')
+        print('\n№     Запись')
         for rec in range(len(find_list)):
-            print(rec + 1, ' ', ('; ').join(find_list[rec]))
+            print(find_list[rec][0], ' ', find_list[rec][1])
     else:
         print('\nЗапись', record, 'НЕ НАЙДЕНА')
     print("\nЧто дальше?")
@@ -112,13 +120,12 @@ def date_today():
     today = date.today()
     return today
     
-#def base_file_read(base_file):
-    with open(file=base_file, mode="r", encoding="UTF-8") as base:
-        reader = csv.reader(base, delimiter = ';')
-        base_list = []
-        for row in reader:
-            base_list.append(row)
-        return(base_list)
+def base_file_read(base_file):
+    '''Func that reads csv file and returns a list of lines'''
+    with open(file=base_file, mode='r', encoding='utf-8') as file:
+        lines = csv.reader(file)
+        base_list = list(lines)
+    return base_list
 
 def base_file_write(base_file, data):
     with open(file=base_file, mode="a", encoding="UTF-8", newline='') as base:
@@ -132,13 +139,6 @@ def print_all_data(base_file):
     base = base_file_read(base_file)
     for rec in base:
         print(( ';').join(rec))
-
-def base_file_read(base_file):
-    with open(file=base_file, mode='r', encoding='utf-8') as file:
-        lines = csv.reader(file)
-        base_list = list(lines)
-    print(base_list)
-    return base_list
 
 
 if __name__ == "__main__":
