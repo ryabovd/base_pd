@@ -121,9 +121,9 @@ def date_today():
     return today
     
 def base_file_read(base_file):
-    '''Func that reads csv file and returns a list of lines'''
-    with open(file=base_file, mode='r', encoding='utf-8') as file:
-        lines = csv.reader(file)
+    '''Func that reads csv file (delimiter is ';') and returns a list of lists of strings'''
+    with open(file=base_file, mode='r', encoding='utf-8') as base:
+        lines = csv.reader(base, delimiter=';')
         base_list = list(lines)
     return base_list
 
