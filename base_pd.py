@@ -41,7 +41,7 @@ def menu_handling(menu_choise, base_file, base_structure):
     elif menu_choise == '2':
         rec_new(base_file, base_structure)
     elif menu_choise == '3':
-        pass
+        change_data(base_file)
     elif menu_choise == '4':
         print_all_data(base_file)
     elif menu_choise == '0':
@@ -56,6 +56,7 @@ def rec_find(base_file):
     base_list =  base_file_read(base_file)
     find_list = get_find_list(base_list, record)
     print_find_list(find_list, record)
+    return find_list
             
 def get_find_list(base_list, record):
     '''Func recieved list of records and returned list of finded records and theyes indexes'''
@@ -139,6 +140,16 @@ def print_all_data(base_file):
     base = base_file_read(base_file)
     for rec in base:
         print(( ';').join(rec))
+
+def change_data(base_file):
+    find_list = rec_find(base_file)
+    rec_for_change = input('Введите номер записи для изменения - ').strip()
+    for rec in find_list:
+        if rec_for_change == str(rec[0]):
+            print('Изменяем запись', rec)
+        else:
+            continue
+    print("Дальше нужно изменять запись")
 
 
 if __name__ == "__main__":
