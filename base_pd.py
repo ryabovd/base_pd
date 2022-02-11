@@ -41,7 +41,7 @@ def menu_handling(menu_choise, base_file, base_structure):
     elif menu_choise == '2':
         rec_new(base_file, base_structure)
     elif menu_choise == '3':
-        change_data(base_file)
+        change_data(base_file, base_structure)
     elif menu_choise == '4':
         print_all_data(base_file)
     elif menu_choise == '0':
@@ -134,22 +134,50 @@ def base_file_write(base_file, data):
         writer.writerow(data)
         print("Внесена запись")
         print(data)
-        #menu()
 
 def print_all_data(base_file):
+    '''Func print all data from basefile'''
     base = base_file_read(base_file)
     for rec in base:
         print(( ';').join(rec))
 
-def change_data(base_file):
+def change_data(base_file, base_structure):
+    '''Func finds records on request.
+    '''
     find_list = rec_find(base_file)
     rec_for_change = input('Введите номер записи для изменения - ').strip()
     for rec in find_list:
         if rec_for_change == str(rec[0]):
-            print('Изменяем запись', rec)
+            print('Изменить запись???', rec)
+            choise = input('Напишите "да" или "нет" - ').strip()
+            if choise == 'да':
+                change_record(rec, base_structure)
+            else:
+                print('Не меняем записи')
         else:
             continue
-    print("Дальше нужно изменять запись")
+
+def change_record(record_for_change, base_structure):
+    '''Func recieve tuple.
+    Save position 0 in new record.
+    And check all data in position 1'''
+    print(record_for_change)
+    new_record = record_for_change[1]
+    if len(new_record) < len(base_structure):
+        for n in range(len(base_structure) - len(new_record)):
+            new_record.append(' ')
+    for y in range(len(base_structure) - 1):
+        print("Проверьте данные: " + base_structure[y])
+        print(new_record[y])
+        choise = input('Изменить данные? Введите "да" или "нет" - ').strip()
+        if choise == 'да':
+            new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
+            new_record[y] = new_data
+        else:
+            continue
+    record_for_write = (record_for_change[0], new_record)
+    print('Измененные данные') 
+    print(record_for_write)
 
 
 if __name__ == "__main__":
