@@ -179,15 +179,11 @@ def change_record(record_for_change, base_structure, base_list, base_file):
             new_record[y] = new_data
         else:
             continue
-    print('new_record[-1] ', new_record[-1])
-    print(date_today())
     if new_record[-1] != date_today():
         date = date_today()    
         new_record[-1] = date
         print('Изменена дата редактирования записи - ', date)
     record_for_write = (record_for_change[0], new_record)
-    print('Измененные данные') 
-    print(record_for_write)
     base_list = preper_base_list(base_list, record_for_write)
     write_change_base_file(base_file, base_list)
 
