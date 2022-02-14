@@ -139,7 +139,7 @@ def print_all_data(base_file):
     '''Func print all data from basefile'''
     base = base_file_read(base_file)
     for rec in base:
-        print(( ';').join(rec))
+        print(( ';').join(rec) + '\n')
 
 def change_data(base_file, base_structure):
     '''Func finds records on request.
@@ -169,15 +169,25 @@ def change_record(record_for_change, base_structure):
     for y in range(len(base_structure) - 1):
         print("Проверьте данные: " + base_structure[y])
         print(new_record[y])
+        print()
         choise = input('Изменить данные? Введите "да" или "нет" - ').strip()
-        if choise == 'да':
+        if choise.lower() == 'да':
             new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
             new_record[y] = new_data
         else:
             continue
+    print('new_record[-1] ', new_record[-1])
+    print(date_today())
+    if new_record[-1] != date_today():
+        date = date_today()    
+        new_record[-1] = date
+        print('Изменена дата редактирования записи - ', date)
     record_for_write = (record_for_change[0], new_record)
     print('Измененные данные') 
     print(record_for_write)
+
+def write_change_base_file():
+    pass
 
 
 if __name__ == "__main__":
