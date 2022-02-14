@@ -86,6 +86,8 @@ def print_find_list(find_list, record):
     print("\nЧто дальше?")
 
 def rec_new(base_file, base_structure):
+    '''Сделать обработку ошибки ввода не числа
+    Сделать обработку ввода 0'''
     n = int(input("Введите количество записей для ввода - "))
     data_list = []
     for i in range(n):
@@ -151,13 +153,14 @@ def change_data(base_file, base_structure):
             print('Изменить запись???', rec)
             choise = input('Напишите "да" или "нет" - ').strip()
             if choise == 'да':
-                change_record(rec, base_structure)
+                base_list = base_file_read(base_file)
+                change_record(rec, base_structure, base_list, base_file)
             else:
                 print('Не меняем записи')
         else:
             continue
 
-def change_record(record_for_change, base_structure):
+def change_record(record_for_change, base_structure, base_list, base_file):
     '''Func recieve tuple.
     Save position 0 in new record.
     And check all data in position 1'''
@@ -185,9 +188,23 @@ def change_record(record_for_change, base_structure):
     record_for_write = (record_for_change[0], new_record)
     print('Измененные данные') 
     print(record_for_write)
+    base_list = preper_base_list(base_list, record_for_write)
+    write_change_base_file(base_file, base_list)
 
-def write_change_base_file():
-    pass
+def preper_base_list(base_list, record_for_write):
+    index, line = record_for_write
+    base_list[index] = line
+    return base_list
+
+def write_change_base_file(base_file, base_list):
+    '''Func recieved name base file and new base list. 
+    Then write base file from list.'''
+    with open(file=base_file, mode="w", encoding="UTF-8", newline='') as base:
+        writer = csv.writer(base, delimiter=';')
+        for line in base_list:
+            #print(line)
+            writer.writerow(line)
+    print("Файл базы данных записан")
 
 
 if __name__ == "__main__":
