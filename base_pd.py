@@ -182,12 +182,13 @@ def change_record(record_for_change, base_structure, base_list, base_file):
     if new_record[-1] != date_today():
         date = date_today()    
         new_record[-1] = date
-        print('Изменена дата редактирования записи - ', date)
+        print('Запись ИЗМЕНЕНА', date)
     record_for_write = (record_for_change[0], new_record)
     base_list = preper_base_list(base_list, record_for_write)
     write_change_base_file(base_file, base_list)
 
 def preper_base_list(base_list, record_for_write):
+    '''Insert a new record in place of the old one'''
     index, line = record_for_write
     base_list[index] = line
     return base_list
@@ -198,10 +199,10 @@ def write_change_base_file(base_file, base_list):
     with open(file=base_file, mode="w", encoding="UTF-8", newline='') as base:
         writer = csv.writer(base, delimiter=';')
         for line in base_list:
-            #print(line)
             writer.writerow(line)
-    print("Файл базы данных записан")
+    print("Файл базы данных ЗАПИСАН\n")
 
 
 if __name__ == "__main__":
     main()
+    print('Работа программы ЗАВЕРШЕНА')
