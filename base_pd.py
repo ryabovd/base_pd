@@ -6,7 +6,7 @@ import sys
 def main():
     base_file = "base_pd.csv"
     base_structure = [
-        'Фамилия Имя Отчество', 
+        'Фамилия Имя Отчество (с учетом РЕГИСТРА)', 
         'Дата рождения yyyy.mm.dd', 
         'Место рождения', 
         'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 
@@ -170,7 +170,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         for n in range(len(base_structure) - len(new_record)):
             new_record.append(' ')
     for y in range(len(base_structure) - 1):
-        print("Проверьте данные: " + base_structure[y])
+        print("ПРОВЕРЬТЕ данные: " + base_structure[y])
         print(new_record[y])
         print()
         choise = input('Изменить данные? Введите "да" или "нет" - ').strip()
