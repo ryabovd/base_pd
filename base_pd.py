@@ -4,10 +4,14 @@ import sys
 
 
 def main():
+    '''
+    Main function.
+    Base structure.
+    '''
     base_file = "base_pd.csv"
     base_structure = [
         'Фамилия Имя Отчество (с учетом РЕГИСТРА)', 
-        'Дата рождения yyyy.mm.dd', 
+        'Дата рождения dd.mm.yyyy', 
         'Место рождения', 
         'Паспорт (Номер, Кем выдан, Дата выдачи, Код подразделения)', 
         'СНИЛС (только цифры)', 
@@ -21,6 +25,9 @@ def main():
     menu_handling(menu_choise, base_file, base_structure)
 
 def menu():
+    '''
+    Menu function
+    '''
     menu_choise = 'выбор не сделан'
     print("МЕНЮ")
     print("1 - Найти запись")
