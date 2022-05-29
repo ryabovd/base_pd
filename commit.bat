@@ -1,5 +1,5 @@
 color B
-datetime_now=`date "+%Y-%m-%d %H:%M"`
+datetime_now=`%date%`
 git config --global user.name "ryabovd"
 git config --global user.email "ryabovd@outlook.com"
 git add *
