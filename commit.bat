@@ -4,7 +4,7 @@ echo %date%
 pause
 git config --global user.name "ryabovd"
 git config --global user.email "ryabovd@outlook.com"
-git add *
+git add .
 git commit -m %date%
 git branch -M main
 git remote add origin https://github.com/ryabovd/base_pd.git
