@@ -96,7 +96,6 @@ def rec_new(base_file, base_structure):
     '''Make error handling of non-numerical inputs
     Make input handling 0'''
     n = int(input("Введите количество записей для ввода - "))
-    data_list = []
     for i in range(n):
         data = []
         for y in range(len(base_structure) - 1):
@@ -138,7 +137,7 @@ def base_file_read(base_file):
     return base_list
 
 def base_file_write(base_file, data):
-    with open(file=base_file, mode="a", encoding="UTF-8", newline='') as base:
+    with open(file=base_file, mode="a", encoding="UTF-8") as base:
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
         print("Внесена запись")

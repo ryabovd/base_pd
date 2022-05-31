@@ -20,3 +20,9 @@ with open(file = 'base_pd.csv', mode = 'r', encoding = 'utf-8') as r_file:
         else:
             new_list.append(row)
 print(new_list)
+
+with open(file = 'base_pd_new.csv', mode = 'w', encoding='utf-8', newline='') as w_file:
+    writer = csv.writer(w_file, delimiter=';')
+    for record in new_list:
+        writer.writerow(record)
+    print("Файл с конвертированными данными записан: base_pd_new.csv")
