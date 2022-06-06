@@ -7,6 +7,15 @@ import ctypes
 kernel32 = ctypes.windll.kernel32
 kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
 
+'''
+Colors!
+Write a module and import in future.
+'''
+red_text = '\033[31m'
+green_text = '\033[32m'
+end_text = '\033[0m'
+white_text_on_blue = '\033[37m\033[44m'
+numbers = white_text_on_blue
 
 def main():
     '''
@@ -34,12 +43,13 @@ def menu():
     Menu function
     '''
     menu_choise = 'выбор не сделан'
+    #print()
     print("\033[4m{}\033[0m".format("\nМЕНЮ"))
-    print("\033[37m\033[44m{}\033[0m".format(" 1") + " - Найти запись")
-    print("\033[37m\033[44m{}\033[0m".format(" 2") + " - Внести записи")
-    print("\033[37m\033[44m{}\033[0m".format(" 3") + " - Изменить запись")
-    print("\033[37m\033[44m{}\033[0m".format(" 4") + " - Напечатать все записи")
-    print("\033[37m\033[44m{}\033[0m".format(" 0") + " - Выход \n")
+    print(numbers + " " + "1" + " " + end_text + " - Найти запись")
+    print(numbers + " " + "2" + " " + end_text + " - Внести записи")
+    print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
+    print(numbers + " " + "4" + " " + end_text + " - Напечатать все записи")
+    print(numbers + " " + "0" + " " + end_text + " - Выход \n")
     menu_choise = input("Выберите пункт меню - ")
     while menu_choise not in ['0', '1', '2', '3', '4']:
         menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
@@ -56,7 +66,7 @@ def menu_handling(menu_choise, base_file, base_structure):
     elif menu_choise == '4':
         print_all_data(base_file)
     elif menu_choise == '0':
-        print("\033[32mВЫХОД из программы\033[0m")
+        print(green_text + "ВЫХОД из программы" + end_text)
         sys.exit()
     else:
         pass
@@ -161,7 +171,13 @@ def change_data(base_file, base_structure):
     for rec in find_list:
         if rec_for_change == str(rec[0]):
             print('\033[31mИзменить запись???\033[0m', rec)
+
+#Change code on red 
+
             choise = input('Напишите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
+
+#Change code on red and green
+
             if choise == 'да':
                 base_list = base_file_read(base_file)
                 change_record(rec, base_structure, base_list, base_file)
@@ -184,6 +200,9 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print(new_record[y])
         print()
         choise = input('Изменить данные? Введите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
+
+#Change code on red and green
+
         if choise.lower() == 'да':
             new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
             new_record[y] = new_data
@@ -193,6 +212,9 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         date = date_today()    
         new_record[-1] = date
         print('\033[32mЗапись ИЗМЕНЕНА\033[0m', date)
+
+#Add red text
+
     record_for_write = (record_for_change[0], new_record)
     base_list = preper_base_list(base_list, record_for_write)
     write_change_base_file(base_file, base_list)
@@ -211,8 +233,14 @@ def write_change_base_file(base_file, base_list):
         for line in base_list:
             writer.writerow(line)
     print("Файл базы данных ЗАПИСАН\n")
+    '''
+    Add red text
+    '''
 
 
 if __name__ == "__main__":
     main()
     print('Работа программы ЗАВЕРШЕНА')
+    '''
+    Add green text
+    '''
