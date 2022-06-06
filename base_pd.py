@@ -43,8 +43,10 @@ def menu():
     Menu function
     '''
     menu_choise = 'выбор не сделан'
-    #print()
     print("\033[4m{}\033[0m".format("\nМЕНЮ"))
+
+# Underline
+
     print(numbers + " " + "1" + " " + end_text + " - Найти запись")
     print(numbers + " " + "2" + " " + end_text + " - Внести записи")
     print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
@@ -102,6 +104,9 @@ def print_find_list(find_list, record):
         print('\n№     Запись')
         for rec in range(len(find_list)):
             print(find_list[rec][0], ' ', find_list[rec][1])
+
+# color numbers
+
     else:
         print('\nЗапись', record, 'НЕ НАЙДЕНА')
     print("\nЧто дальше?")
@@ -117,6 +122,9 @@ def rec_new(base_file, base_structure):
             if y == 0:
                 if check_name(data_input, base_file) is True:
                     print("Такая запись уже внесена.\nОСТАНОВКА программы\n")
+
+# color
+
                     break
                 else:
                     data.append(data_input)
@@ -155,6 +163,9 @@ def base_file_write(base_file, data):
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
         print("Внесена запись")
+
+# color
+
         print(data)
 
 def print_all_data(base_file):
@@ -233,14 +244,12 @@ def write_change_base_file(base_file, base_list):
         for line in base_list:
             writer.writerow(line)
     print("Файл базы данных ЗАПИСАН\n")
-    '''
-    Add red text
-    '''
+
+# Add red text
 
 
 if __name__ == "__main__":
     main()
     print('Работа программы ЗАВЕРШЕНА')
-    '''
-    Add green text
-    '''
+
+# Add green text
