@@ -1,6 +1,11 @@
 import csv
 from datetime import date
 import sys
+import ctypes
+
+
+kernel32 = ctypes.windll.kernel32
+kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
 
 
 def main():
@@ -29,17 +34,16 @@ def menu():
     Menu function
     '''
     menu_choise = 'выбор не сделан'
-    print("МЕНЮ")
-    print("1 - Найти запись")
-    print("2 - Внести записи")
-    print("3 - Изменить запись")
-    print("4 - Напечатать все записи")
-    print("0 - Выход")
-    print()
+    print("\033[4m{}\033[0m".format("\nМЕНЮ"))
+    print("\033[37m\033[44m{}\033[0m".format(" 1") + " - Найти запись")
+    print("\033[37m\033[44m{}\033[0m".format(" 2") + " - Внести записи")
+    print("\033[37m\033[44m{}\033[0m".format(" 3") + " - Изменить запись")
+    print("\033[37m\033[44m{}\033[0m".format(" 4") + " - Напечатать все записи")
+    print("\033[37m\033[44m{}\033[0m".format(" 0") + " - Выход \n")
     menu_choise = input("Выберите пункт меню - ")
     while menu_choise not in ['0', '1', '2', '3', '4']:
         menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
-    print('Выбор', menu_choise)
+    #print('Выбор', menu_choise)
     return menu_choise
 
 def menu_handling(menu_choise, base_file, base_structure):
@@ -52,7 +56,7 @@ def menu_handling(menu_choise, base_file, base_structure):
     elif menu_choise == '4':
         print_all_data(base_file)
     elif menu_choise == '0':
-        print("ВЫХОД из программы")
+        print("\033[32mВЫХОД из программы\033[0m")
         sys.exit()
     else:
         pass
@@ -156,8 +160,8 @@ def change_data(base_file, base_structure):
     rec_for_change = input('Введите номер записи для изменения - ').strip()
     for rec in find_list:
         if rec_for_change == str(rec[0]):
-            print('Изменить запись???', rec)
-            choise = input('Напишите "да" или "нет" - ').strip()
+            print('\033[31mИзменить запись???\033[0m', rec)
+            choise = input('Напишите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
             if choise == 'да':
                 base_list = base_file_read(base_file)
                 change_record(rec, base_structure, base_list, base_file)
@@ -179,7 +183,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print("ПРОВЕРЬТЕ данные: " + base_structure[y])
         print(new_record[y])
         print()
-        choise = input('Изменить данные? Введите "да" или "нет" - ').strip()
+        choise = input('Изменить данные? Введите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
         if choise.lower() == 'да':
             new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
             new_record[y] = new_data
@@ -188,7 +192,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
     if new_record[-1] != date_today():
         date = date_today()    
         new_record[-1] = date
-        print('Запись ИЗМЕНЕНА', date)
+        print('\033[32mЗапись ИЗМЕНЕНА\033[0m', date)
     record_for_write = (record_for_change[0], new_record)
     base_list = preper_base_list(base_list, record_for_write)
     write_change_base_file(base_file, base_list)
