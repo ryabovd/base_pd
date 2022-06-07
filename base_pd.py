@@ -37,7 +37,7 @@ def main():
         'Дата актуальности'
         ]
     menu_choise = menu()
-    print('menu_choise', menu_choise, 'base_file', base_file, 'base_structure', base_structure)
+    #print('menu_choise', menu_choise, 'base_file', base_file, 'base_structure', base_structure)
     menu_handling(menu_choise, base_file, base_structure)
 
 def menu():
@@ -62,7 +62,7 @@ def menu():
 
 def menu_handling(menu_choise, base_file, base_structure):
     if menu_choise == '1':
-        print('base_file', base_file)
+        #print('base_file', base_file)
         rec_find(base_file)
     elif menu_choise == '2':
         rec_new(base_file, base_structure)
@@ -87,7 +87,7 @@ def rec_find(base_file):
 def get_find_list(base_list, record):
     '''Func recieved list of records and returned list of finded records and theyes indexes'''
     find_list = []
-    print('find_list', find_list)
+    #print('find_list', find_list)
     for rec in range(len(base_list)-1):
         #print('rec', rec)
         #print('base_list', base_list)
@@ -109,9 +109,10 @@ def print_find_list(find_list, record):
     if record not in base, print notice.
     '''
     if len(find_list) > 0:
-        print('\n№     Запись')
+        print()
+        print(numbers + ' № ' + end_text + '     Запись' + '\n')
         for rec in range(len(find_list)):
-            print(find_list[rec][0], ' ', find_list[rec][1])
+            print(numbers + ' ' + str(find_list[rec][0]) + ' ' + end_text, ' ', find_list[rec][1])
 
 # color numbers
 
