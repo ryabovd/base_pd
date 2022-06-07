@@ -7,6 +7,18 @@ import ctypes
 kernel32 = ctypes.windll.kernel32
 kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
 
+'''
+Colors!
+Write a module and import in future.
+'''
+red_text = '\033[31m'
+green_text = '\033[32m'
+yellow_text = '\033[33m'
+white_text_on_blue = '\033[37m\033[44m'
+marked_text = '\033[43m'
+numbers = white_text_on_blue
+end_text = '\033[0m'
+
 
 def main():
     '''
@@ -27,6 +39,7 @@ def main():
         'Дата актуальности'
         ]
     menu_choise = menu()
+    #print('menu_choise', menu_choise, 'base_file', base_file, 'base_structure', base_structure)
     menu_handling(menu_choise, base_file, base_structure)
 
 def menu():
@@ -35,11 +48,14 @@ def menu():
     '''
     menu_choise = 'выбор не сделан'
     print("\033[4m{}\033[0m".format("\nМЕНЮ"))
-    print("\033[37m\033[44m{}\033[0m".format(" 1") + " - Найти запись")
-    print("\033[37m\033[44m{}\033[0m".format(" 2") + " - Внести записи")
-    print("\033[37m\033[44m{}\033[0m".format(" 3") + " - Изменить запись")
-    print("\033[37m\033[44m{}\033[0m".format(" 4") + " - Напечатать все записи")
-    print("\033[37m\033[44m{}\033[0m".format(" 0") + " - Выход \n")
+
+# Underline
+
+    print(numbers + " " + "1" + " " + end_text + " - Найти запись")
+    print(numbers + " " + "2" + " " + end_text + " - Внести записи")
+    print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
+    print(numbers + " " + "4" + " " + end_text + " - Напечатать все записи")
+    print(numbers + " " + "0" + " " + end_text + " - Выход \n")
     menu_choise = input("Выберите пункт меню - ")
     while menu_choise not in ['0', '1', '2', '3', '4']:
         menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
@@ -48,6 +64,7 @@ def menu():
 
 def menu_handling(menu_choise, base_file, base_structure):
     if menu_choise == '1':
+        #print('base_file', base_file)
         rec_find(base_file)
     elif menu_choise == '2':
         rec_new(base_file, base_structure)
@@ -56,7 +73,7 @@ def menu_handling(menu_choise, base_file, base_structure):
     elif menu_choise == '4':
         print_all_data(base_file)
     elif menu_choise == '0':
-        print("\033[32mВЫХОД из программы\033[0m")
+        print(green_text + "ВЫХОД из программы" + end_text)
         sys.exit()
     else:
         pass
@@ -72,7 +89,12 @@ def rec_find(base_file):
 def get_find_list(base_list, record):
     '''Func recieved list of records and returned list of finded records and theyes indexes'''
     find_list = []
-    for rec in range(len(base_list)):
+    #print('find_list', find_list)
+    for rec in range(len(base_list)-1):
+        #print('rec', rec)
+        #print('base_list', base_list)
+        #print('len', len(base_list))
+
         if record in base_list[rec][0]:
             finded_record = rec, base_list[rec]
             find_list.append(finded_record)
@@ -89,12 +111,18 @@ def print_find_list(find_list, record):
     if record not in base, print notice.
     '''
     if len(find_list) > 0:
-        print('\n№     Запись')
+        print()
+        print(numbers + ' № ' + end_text + '     Запись' + '\n')
         for rec in range(len(find_list)):
-            print(find_list[rec][0], ' ', find_list[rec][1])
+            print(numbers + ' ' + str(find_list[rec][0]) + ' ' + end_text, ' ', find_list[rec][1])
+
+# color numbers
+
     else:
-        print('\nЗапись', record, 'НЕ НАЙДЕНА')
-    print("\nЧто дальше?")
+        print('\nЗапись', marked_text + record + end_text, red_text + 'НЕ НАЙДЕНА' + end_text)
+        print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
+        sys.exit()
+    #print("\nЧто дальше?")
 
 def rec_new(base_file, base_structure):
     '''Make error handling of non-numerical inputs
@@ -107,6 +135,9 @@ def rec_new(base_file, base_structure):
             if y == 0:
                 if check_name(data_input, base_file) is True:
                     print("Такая запись уже внесена.\nОСТАНОВКА программы\n")
+
+# color
+
                     break
                 else:
                     data.append(data_input)
@@ -144,7 +175,10 @@ def base_file_write(base_file, data):
     with open(file=base_file, mode="a", encoding="UTF-8") as base:
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
-        print("Внесена запись")
+        print(green_text + "Внесена запись" + end_text)
+
+# color
+
         print(data)
 
 def print_all_data(base_file):
@@ -157,11 +191,17 @@ def change_data(base_file, base_structure):
     '''Func finds records on request.
     '''
     find_list = rec_find(base_file)
-    rec_for_change = input('Введите номер записи для изменения - ').strip()
+    rec_for_change = input('Введите ' + numbers + ' № ' + end_text + ' записи для изменения - ').strip()
     for rec in find_list:
         if rec_for_change == str(rec[0]):
-            print('\033[31mИзменить запись???\033[0m', rec)
-            choise = input('Напишите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
+            print(red_text + 'Изменить запись???' + end_text, yellow_text + str(rec) + end_text)
+
+#Change code on red and marked
+
+            choise = input('Напишите ' + red_text + 'ДА' + end_text + ' или ' + green_text + 'НЕТ' + end_text + ' - ').strip()
+
+#Change code on red and green
+
             if choise == 'да':
                 base_list = base_file_read(base_file)
                 change_record(rec, base_structure, base_list, base_file)
@@ -183,7 +223,10 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print("ПРОВЕРЬТЕ данные: " + base_structure[y])
         print(new_record[y])
         print()
-        choise = input('Изменить данные? Введите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
+        choise = input("Изменить данные? Введите " + red_text + "ДА" + end_text + " или " + green_text + "НЕТ" + end_text + " - ").strip()
+
+#Change code on red and green
+
         if choise.lower() == 'да':
             new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
             new_record[y] = new_data
@@ -192,7 +235,10 @@ def change_record(record_for_change, base_structure, base_list, base_file):
     if new_record[-1] != date_today():
         date = date_today()    
         new_record[-1] = date
-        print('\033[32mЗапись ИЗМЕНЕНА\033[0m', date)
+        print(red_text + 'Запись ИЗМЕНЕНА' + end_text, date)
+
+#Add red text
+
     record_for_write = (record_for_change[0], new_record)
     base_list = preper_base_list(base_list, record_for_write)
     write_change_base_file(base_file, base_list)
@@ -210,9 +256,13 @@ def write_change_base_file(base_file, base_list):
         writer = csv.writer(base, delimiter=';')
         for line in base_list:
             writer.writerow(line)
-    print("Файл базы данных ЗАПИСАН\n")
+    print(red_text + "Файл базы данных ЗАПИСАН" + end_text + "\n")
+
+# Add red text
 
 
 if __name__ == "__main__":
     main()
-    print('Работа программы ЗАВЕРШЕНА')
+    print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
+
+# Add green text
