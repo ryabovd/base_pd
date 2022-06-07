@@ -13,10 +13,12 @@ Write a module and import in future.
 '''
 red_text = '\033[31m'
 green_text = '\033[32m'
-end_text = '\033[0m'
+yellow_text = '\033[33m'
 white_text_on_blue = '\033[37m\033[44m'
 marked_text = '\033[43m'
 numbers = white_text_on_blue
+end_text = '\033[0m'
+
 
 def main():
     '''
@@ -117,8 +119,10 @@ def print_find_list(find_list, record):
 # color numbers
 
     else:
-        print('\nЗапись', record, 'НЕ НАЙДЕНА')
-    print("\nЧто дальше?")
+        print('\nЗапись', marked_text + record + end_text, red_text + 'НЕ НАЙДЕНА' + end_text)
+        print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
+        sys.exit()
+    #print("\nЧто дальше?")
 
 def rec_new(base_file, base_structure):
     '''Make error handling of non-numerical inputs
@@ -187,14 +191,14 @@ def change_data(base_file, base_structure):
     '''Func finds records on request.
     '''
     find_list = rec_find(base_file)
-    rec_for_change = input('Введите номер записи для изменения - ').strip()
+    rec_for_change = input('Введите ' + numbers + ' № ' + end_text + ' записи для изменения - ').strip()
     for rec in find_list:
         if rec_for_change == str(rec[0]):
-            print('\033[31mИзменить запись???\033[0m', rec)
+            print(red_text + 'Изменить запись???' + end_text, yellow_text + str(rec) + end_text)
 
-#Change code on red 
+#Change code on red and marked
 
-            choise = input('Напишите ' + red_text + 'да' + end_text + ' или ' + green_text + 'нет' + end_text + ' - ').strip()
+            choise = input('Напишите ' + red_text + 'ДА' + end_text + ' или ' + green_text + 'НЕТ' + end_text + ' - ').strip()
 
 #Change code on red and green
 
@@ -219,7 +223,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print("ПРОВЕРЬТЕ данные: " + base_structure[y])
         print(new_record[y])
         print()
-        choise = input("Изменить данные? Введите " + red_text + "да" + end_text + " или " + green_text + "нет" + end_text + " - ").strip()
+        choise = input("Изменить данные? Введите " + red_text + "ДА" + end_text + " или " + green_text + "НЕТ" + end_text + " - ").strip()
 
 #Change code on red and green
 
