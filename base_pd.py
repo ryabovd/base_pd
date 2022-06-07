@@ -15,6 +15,7 @@ red_text = '\033[31m'
 green_text = '\033[32m'
 end_text = '\033[0m'
 white_text_on_blue = '\033[37m\033[44m'
+marked_text = '\033[43m'
 numbers = white_text_on_blue
 
 def main():
@@ -36,6 +37,7 @@ def main():
         'Дата актуальности'
         ]
     menu_choise = menu()
+    print('menu_choise', menu_choise, 'base_file', base_file, 'base_structure', base_structure)
     menu_handling(menu_choise, base_file, base_structure)
 
 def menu():
@@ -60,6 +62,7 @@ def menu():
 
 def menu_handling(menu_choise, base_file, base_structure):
     if menu_choise == '1':
+        print('base_file', base_file)
         rec_find(base_file)
     elif menu_choise == '2':
         rec_new(base_file, base_structure)
@@ -84,7 +87,12 @@ def rec_find(base_file):
 def get_find_list(base_list, record):
     '''Func recieved list of records and returned list of finded records and theyes indexes'''
     find_list = []
-    for rec in range(len(base_list)):
+    print('find_list', find_list)
+    for rec in range(len(base_list)-1):
+        #print('rec', rec)
+        #print('base_list', base_list)
+        #print('len', len(base_list))
+
         if record in base_list[rec][0]:
             finded_record = rec, base_list[rec]
             find_list.append(finded_record)
@@ -162,7 +170,7 @@ def base_file_write(base_file, data):
     with open(file=base_file, mode="a", encoding="UTF-8") as base:
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
-        print("Внесена запись")
+        print(green_text + "Внесена запись" + end_text)
 
 # color
 
@@ -185,7 +193,7 @@ def change_data(base_file, base_structure):
 
 #Change code on red 
 
-            choise = input('Напишите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
+            choise = input('Напишите ' + red_text + 'да' + end_text + ' или ' + green_text + 'нет' + end_text + ' - ').strip()
 
 #Change code on red and green
 
@@ -210,7 +218,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print("ПРОВЕРЬТЕ данные: " + base_structure[y])
         print(new_record[y])
         print()
-        choise = input('Изменить данные? Введите \033[31m"да"\033[0m или \033[32m"нет"\033[0m - ').strip()
+        choise = input("Изменить данные? Введите " + red_text + "да" + end_text + " или " + green_text + "нет" + end_text + " - ").strip()
 
 #Change code on red and green
 
@@ -222,7 +230,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
     if new_record[-1] != date_today():
         date = date_today()    
         new_record[-1] = date
-        print('\033[32mЗапись ИЗМЕНЕНА\033[0m', date)
+        print(red_text + 'Запись ИЗМЕНЕНА' + end_text, date)
 
 #Add red text
 
@@ -243,13 +251,13 @@ def write_change_base_file(base_file, base_list):
         writer = csv.writer(base, delimiter=';')
         for line in base_list:
             writer.writerow(line)
-    print("Файл базы данных ЗАПИСАН\n")
+    print(red_text + "Файл базы данных ЗАПИСАН" + end_text + "\n")
 
 # Add red text
 
 
 if __name__ == "__main__":
     main()
-    print('Работа программы ЗАВЕРШЕНА')
+    print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
 
 # Add green text
