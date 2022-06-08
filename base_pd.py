@@ -90,7 +90,7 @@ def get_find_list(base_list, record):
     '''Func recieved list of records and returned list of finded records and theyes indexes'''
     find_list = []
     #print('find_list', find_list)
-    for rec in range(len(base_list)-1):
+    for rec in range(len(base_list)):
         #print('rec', rec)
         #print('base_list', base_list)
         #print('len', len(base_list))
