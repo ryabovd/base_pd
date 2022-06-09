@@ -59,12 +59,10 @@ def menu():
     menu_choise = input("Выберите пункт меню - ")
     while menu_choise not in ['0', '1', '2', '3', '4']:
         menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
-    #print('Выбор', menu_choise)
     return menu_choise
 
 def menu_handling(menu_choise, base_file, base_structure):
     if menu_choise == '1':
-        #print('base_file', base_file)
         rec_find(base_file)
     elif menu_choise == '2':
         rec_new(base_file, base_structure)
