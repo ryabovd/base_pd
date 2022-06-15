@@ -53,10 +53,9 @@ def menu():
     print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
     print(numbers + " " + "4" + " " + end_text + " - Напечатать все записи")
     print(numbers + " " + "0" + " " + end_text + " - Выход \n")
-    menu_choise = input("Выберите " + numbers + "пункт" + end_text + " меню - " + end_text ).strip()
+    menu_choise = input("Выберите " + numbers + "пункт" + end_text + " меню - ").strip()
     while menu_choise not in ['0', '1', '2', '3', '4']:
-        menu_choise = input("Неправильный выбор\nВыберите пункт меню - " + numbers + " ").strip()
-        print(end_text + '\n')
+        menu_choise = input(red_text + "Неправильный выбор\n" + end_text + "Выберите " + numbers + "пункт" + end_text + " меню - ").strip()
     return menu_choise
 
 def menu_handling(menu_choise, base_file, base_structure):
