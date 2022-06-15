@@ -16,8 +16,8 @@ green_text = '\033[32m'
 yellow_text = '\033[33m'
 white_text_on_blue = '\033[37m\033[44m'
 marked_text = '\033[43m'
-numbers = white_text_on_blue
 end_text = '\033[0m'
+numbers = white_text_on_blue
 
 
 def main():
@@ -48,18 +48,14 @@ def menu():
     '''
     menu_choise = 'выбор не сделан'
     print("\033[4m{}\033[0m".format("\nМЕНЮ"))
-
-# Underline
-
     print(numbers + " " + "1" + " " + end_text + " - Найти запись")
     print(numbers + " " + "2" + " " + end_text + " - Внести записи")
     print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
     print(numbers + " " + "4" + " " + end_text + " - Напечатать все записи")
     print(numbers + " " + "0" + " " + end_text + " - Выход \n")
-    menu_choise = input("Выберите пункт меню - ")
+    menu_choise = input("Выберите " + numbers + "пункт" + end_text + " меню - ").strip()
     while menu_choise not in ['0', '1', '2', '3', '4']:
-        menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
-    #print('Выбор', menu_choise)
+        menu_choise = input(red_text + "Неправильный выбор\n" + end_text + "Выберите " + numbers + "пункт" + end_text + " меню - ").strip()
     return menu_choise
 
 def menu_handling(menu_choise, base_file, base_structure):
