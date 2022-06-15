@@ -14,6 +14,7 @@ Write a module and import in future.
 red_text = '\033[31m'
 green_text = '\033[32m'
 yellow_text = '\033[33m'
+blue_text = '\033[34m'
 white_text_on_blue = '\033[37m\033[44m'
 marked_text = '\033[43m'
 end_text = '\033[0m'
@@ -53,9 +54,10 @@ def menu():
     print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
     print(numbers + " " + "4" + " " + end_text + " - Напечатать все записи")
     print(numbers + " " + "0" + " " + end_text + " - Выход \n")
-    menu_choise = input("Выберите " + numbers + "пункт" + end_text + " меню - ").strip()
+    menu_choise = input("Выберите " + numbers + "пункт" + end_text + " меню - " + blue_text).strip()
+    print(end_text, end='')
     while menu_choise not in ['0', '1', '2', '3', '4']:
-        menu_choise = input(red_text + "Неправильный выбор\n" + end_text + "Выберите " + numbers + "пункт" + end_text + " меню - ").strip()
+        menu_choise = input(red_text + "Неправильный выбор\n" + end_text + "Выберите " + numbers + "пункт" + end_text + " меню - " + blue_text).strip()
     return menu_choise
 
 def menu_handling(menu_choise, base_file, base_structure):
