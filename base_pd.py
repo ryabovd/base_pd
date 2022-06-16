@@ -39,8 +39,8 @@ def main():
         'Дата актуальности'
         ]
     menu_choise = menu()
-    #print('menu_choise', menu_choise, 'base_file', base_file, 'base_structure', base_structure)
     menu_handling(menu_choise, base_file, base_structure)
+
 
 def menu():
     '''
@@ -48,9 +48,6 @@ def menu():
     '''
     menu_choise = 'выбор не сделан'
     print("\033[4m{}\033[0m".format("\nМЕНЮ"))
-
-# Underline
-
     print(numbers + " " + "1" + " " + end_text + " - Найти запись")
     print(numbers + " " + "2" + " " + end_text + " - Внести записи")
     print(numbers + " " + "3" + " " + end_text + " - Изменить запись")
@@ -60,6 +57,7 @@ def menu():
     while menu_choise not in ['0', '1', '2', '3', '4']:
         menu_choise = input("Неправильный выбор\nВыберите пункт меню - ").strip()
     return menu_choise
+
 
 def menu_handling(menu_choise, base_file, base_structure):
     if menu_choise == '1':
@@ -76,6 +74,7 @@ def menu_handling(menu_choise, base_file, base_structure):
     else:
         pass
 
+
 def rec_find(base_file):
     '''Func that recieved basefile name and printed list of finded records'''
     record = input("Введите ФИО для поиска: (с учетом РЕГИСТРА) ")
@@ -83,16 +82,12 @@ def rec_find(base_file):
     find_list = get_find_list(base_list, record)
     print_find_list(find_list, record)
     return find_list
-            
+
+          
 def get_find_list(base_list, record):
     '''Func recieved list of records and returned list of finded records and theyes indexes'''
     find_list = []
-    #print('find_list', find_list)
     for rec in range(len(base_list)):
-        #print('rec', rec)
-        #print('base_list', base_list)
-        #print('len', len(base_list))
-
         if record in base_list[rec][0]:
             finded_record = rec, base_list[rec]
             find_list.append(finded_record)
@@ -101,6 +96,7 @@ def get_find_list(base_list, record):
         else:
             continue
     return find_list
+
 
 def print_find_list(find_list, record):
     '''Func recieved list of finded records and record that need to find.
@@ -113,14 +109,11 @@ def print_find_list(find_list, record):
         print(numbers + ' № ' + end_text + '     Запись' + '\n')
         for rec in range(len(find_list)):
             print(numbers + ' ' + str(find_list[rec][0]) + ' ' + end_text, ' ', find_list[rec][1])
-
-# color numbers
-
     else:
         print('\nЗапись', marked_text + record + end_text, red_text + 'НЕ НАЙДЕНА' + end_text)
         print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
         sys.exit()
-    #print("\nЧто дальше?")
+
 
 def rec_new(base_file, base_structure):
     '''Make error handling of non-numerical inputs
@@ -133,9 +126,6 @@ def rec_new(base_file, base_structure):
             if y == 0:
                 if check_name(data_input, base_file) is True:
                     print("Такая запись уже внесена.\nОСТАНОВКА программы\n")
-
-# color
-
                     break
                 else:
                     data.append(data_input)
@@ -145,6 +135,7 @@ def rec_new(base_file, base_structure):
             date = date_today()
             data.append(date)
             base_file_write(base_file, data)
+
 
 def check_name(data_input, base_file):
     record = False
@@ -157,11 +148,13 @@ def check_name(data_input, base_file):
             continue
     return record
 
+
 def date_today():
     '''Func that returned today date'''
     today = date.today()
     return today
-    
+
+
 def base_file_read(base_file):
     '''Func that reads csv file (delimiter is ';') and returns a list of lists of strings'''
     with open(file=base_file, mode='r', encoding='utf-8') as base:
@@ -169,21 +162,21 @@ def base_file_read(base_file):
         base_list = list(lines)
     return base_list
 
+
 def base_file_write(base_file, data):
     with open(file=base_file, mode="a", encoding="UTF-8") as base:
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
         print(green_text + "Внесена запись" + end_text)
-
-# color
-
         print(data)
+
 
 def print_all_data(base_file):
     '''Func print all data from basefile'''
     base = base_file_read(base_file)
     for rec in base:
         print(( ';').join(rec) + '\n')
+
 
 def change_data(base_file, base_structure):
     '''Func finds records on request.
@@ -193,13 +186,7 @@ def change_data(base_file, base_structure):
     for rec in find_list:
         if rec_for_change == str(rec[0]):
             print(red_text + 'Изменить запись???' + end_text, yellow_text + str(rec) + end_text)
-
-#Change code on red and marked
-
             choise = input('Напишите ' + red_text + 'ДА' + end_text + ' или ' + green_text + 'НЕТ' + end_text + ' - ').strip()
-
-#Change code on red and green
-
             if choise == 'да':
                 base_list = base_file_read(base_file)
                 change_record(rec, base_structure, base_list, base_file)
@@ -207,6 +194,7 @@ def change_data(base_file, base_structure):
                 print('Не меняем записи')
         else:
             continue
+
 
 def change_record(record_for_change, base_structure, base_list, base_file):
     '''Func recieve tuple.
@@ -222,9 +210,6 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print(new_record[y])
         print()
         choise = input("Изменить данные? Введите " + red_text + "ДА" + end_text + " или " + green_text + "НЕТ" + end_text + " - ").strip()
-
-#Change code on red and green
-
         if choise.lower() == 'да':
             new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
             new_record[y] = new_data
@@ -234,18 +219,17 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         date = date_today()    
         new_record[-1] = date
         print(red_text + 'Запись ИЗМЕНЕНА' + end_text, date)
-
-#Add red text
-
     record_for_write = (record_for_change[0], new_record)
     base_list = preper_base_list(base_list, record_for_write)
     write_change_base_file(base_file, base_list)
+
 
 def preper_base_list(base_list, record_for_write):
     '''Insert a new record in place of the old one'''
     index, line = record_for_write
     base_list[index] = line
     return base_list
+
 
 def write_change_base_file(base_file, base_list):
     '''Func recieved name base file and new base list. 
@@ -256,11 +240,7 @@ def write_change_base_file(base_file, base_list):
             writer.writerow(line)
     print(red_text + "Файл базы данных ЗАПИСАН" + end_text + "\n")
 
-# Add red text
-
 
 if __name__ == "__main__":
     main()
     print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
-
-# Add green text
