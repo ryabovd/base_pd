@@ -184,7 +184,8 @@ def change_data(base_file, base_structure):
     '''Func finds records on request.
     '''
     find_list = rec_find(base_file)
-    rec_for_change = input('Введите ' + numbers + ' № ' + end_text + ' записи для изменения - ').strip()
+    rec_for_change = input('Введите ' + numbers + ' № ' + end_text + ' записи для изменения - ' + blue_text).strip()
+    print(end_text, end='')
     for rec in find_list:
         if rec_for_change == str(rec[0]):
             print(red_text + 'Изменить запись???' + end_text, yellow_text + str(rec) + end_text)
