@@ -166,7 +166,7 @@ def base_file_read(base_file):
 
 
 def base_file_write(base_file, data):
-    with open(file=base_file, mode="a", encoding="UTF-8") as base:
+    with open(file=base_file, mode="a", encoding="UTF-8", newline='') as base:
         writer = csv.writer(base, delimiter=';')
         writer.writerow(data)
         print(green_text + "Внесена запись" + end_text)
