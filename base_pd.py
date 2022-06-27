@@ -190,7 +190,7 @@ def change_data(base_file, base_structure):
         if rec_for_change == str(rec[0]):
             print(red_text + 'Изменить запись???' + end_text, yellow_text + str(rec) + end_text)
             choise = input('Напишите ' + red_text + 'ДА' + end_text + ' или ' + green_text + 'НЕТ' + end_text + ' - ').strip()
-            if choise == 'да':
+            if choise.lower() == 'да':
                 base_list = base_file_read(base_file)
                 change_record(rec, base_structure, base_list, base_file)
             else:
