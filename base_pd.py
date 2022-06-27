@@ -79,8 +79,8 @@ def menu_handling(menu_choise, base_file, base_structure):
 
 def rec_find(base_file):
     '''Func that recieved basefile name and printed list of finded records'''
-    record = input("Введите ФИО для поиска: (с учетом РЕГИСТРА) ")
-    base_list =  base_file_read(base_file)
+    record = input("Введите ФИО для поиска: (с учетом РЕГИСТРА) ").strip()
+    base_list = base_file_read(base_file)
     find_list = get_find_list(base_list, record)
     print_find_list(find_list, record)
     return find_list
@@ -120,7 +120,7 @@ def print_find_list(find_list, record):
 def rec_new(base_file, base_structure):
     '''Make error handling of non-numerical inputs
     Make input handling 0'''
-    n = int(input("Введите количество записей для ввода - "))
+    n = int(input("Введите количество записей для ввода - ").strip())
     for i in range(n):
         data = []
         for y in range(len(base_structure) - 1):
