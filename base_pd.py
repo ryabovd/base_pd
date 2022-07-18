@@ -2,6 +2,7 @@ import csv
 from datetime import date
 import sys
 import ctypes
+import pprint
 
 
 kernel32 = ctypes.windll.kernel32
@@ -110,7 +111,9 @@ def print_find_list(find_list, record):
         print()
         print(numbers + ' № ' + end_text + '     Запись' + '\n')
         for rec in range(len(find_list)):
-            print(numbers + ' ' + str(find_list[rec][0]) + ' ' + end_text, ' ', find_list[rec][1])
+            print(numbers + ' ' + str(find_list[rec][0]) + ' ' + end_text, ' ', end='')
+            pprint.pprint(find_list[rec][1], indent=4, width=160)
+            print()
     else:
         print('\nЗапись', marked_text + record + end_text, red_text + 'НЕ НАЙДЕНА' + end_text)
         print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
