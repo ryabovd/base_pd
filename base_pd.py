@@ -112,7 +112,7 @@ def print_find_list(find_list, record):
         print(numbers + ' № ' + end_text + '     Запись' + '\n')
         for rec in range(len(find_list)):
             print(numbers + ' ' + str(find_list[rec][0]) + ' ' + end_text, ' ', end='')
-            pprint.pprint(find_list[rec][1], indent=4, width=200)
+            pprint.pprint(find_list[rec][1], indent=4, width=160)
             print()
     else:
         print('\nЗапись', marked_text + record + end_text, red_text + 'НЕ НАЙДЕНА' + end_text)
