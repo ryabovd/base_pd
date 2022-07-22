@@ -213,7 +213,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
             new_record.append(' ')
     for y in range(len(base_structure) - 1):
         print("ПРОВЕРЬТЕ данные: " + base_structure[y])
-        print(new_record[y])
+        print(yellow_text + new_record[y] + end_text)
         print()
         choise = input("Изменить данные? Введите " + red_text + "ДА" + end_text + " или " + green_text + "НЕТ" + end_text + " - ").strip()
         if choise.lower() == 'да':
