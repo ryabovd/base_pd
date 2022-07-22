@@ -189,10 +189,14 @@ def change_data(base_file, base_structure):
     find_list = rec_find(base_file)
     rec_for_change = input('Введите ' + numbers + ' № ' + end_text + ' записи для изменения - ' + blue_text).strip()
     print(end_text, end='')
+    print()
     for rec in find_list:
         if rec_for_change == str(rec[0]):
+            print(end_text, end='')
             print(red_text + 'Изменить запись???' + end_text, yellow_text + str(rec) + end_text)
-            choise = input('Напишите ' + red_text + 'ДА' + end_text + ' или ' + green_text + 'НЕТ' + end_text + ' - ').strip()
+            choise = input('Напишите ' + red_text + 'ДА' + end_text + ' или ' + green_text + 'НЕТ' + end_text + ' - ' + yellow_text).strip()
+            print(end_text, end='')
+            print()
             if choise.lower() == 'да':
                 base_list = base_file_read(base_file)
                 change_record(rec, base_structure, base_list, base_file)
@@ -206,7 +210,7 @@ def change_record(record_for_change, base_structure, base_list, base_file):
     '''Func recieve tuple.
     Save position 0 in new record.
     And check all data in position 1'''
-    print(record_for_change)
+    #print(record_for_change)
     new_record = record_for_change[1]
     if len(new_record) < len(base_structure):
         for n in range(len(base_structure) - len(new_record)):
@@ -215,7 +219,9 @@ def change_record(record_for_change, base_structure, base_list, base_file):
         print("ПРОВЕРЬТЕ данные: " + base_structure[y])
         print(new_record[y])
         print()
-        choise = input("Изменить данные? Введите " + red_text + "ДА" + end_text + " или " + green_text + "НЕТ" + end_text + " - ").strip()
+        choise = input("Изменить данные? Введите " + red_text + "ДА" + end_text + " или " + green_text + "НЕТ" + end_text + " - " + yellow_text).strip()
+        print(end_text, end='')
+        print()
         if choise.lower() == 'да':
             new_data = input('Введите данные: '+ base_structure[y] + ' - ').strip()
             new_record[y] = new_data
