@@ -3,6 +3,7 @@ from datetime import date
 import sys
 import ctypes
 import pprint
+import shutil
 
 
 kernel32 = ctypes.windll.kernel32
@@ -140,7 +141,7 @@ def rec_new(base_file, base_structure):
             date = date_today()
             data.append(date)
             base_file_write(base_file, data)
-
+            
 
 def check_name(data_input, base_file):
     record = False
@@ -253,6 +254,13 @@ def write_change_base_file(base_file, base_list):
     print(red_text + "Файл базы данных ЗАПИСАН" + end_text + "\n")
 
 
+def auto_backup():
+    date = date_today().strftime('%Y-%m-%d')
+    filename = date + '-backup.csv'
+    shutil.copy2('base_pd.csv', filename)
+
+
 if __name__ == "__main__":
     main()
+    auto_backup()
     print(green_text + 'Работа программы ЗАВЕРШЕНА' + end_text)
