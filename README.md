@@ -1,5 +1,7 @@
-readme v. 1.0
+readme v. 2.0
+Эта программа была переписана. Теперь она работает не с csv, а с sql базой.
 
+readme v. 1.0
 This script works with the database in the file base_pd.csv (separated by semicolons).
 The database data is stored and entered in the following order:
         'Surname First Name Middle Name (including REGISTER)', 
